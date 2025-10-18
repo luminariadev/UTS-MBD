@@ -1,0 +1,6 @@
+# Ignore environment variables
+.env
+# Ignore temporary logs or data
+*.log
+evidence/
+__pycache__/

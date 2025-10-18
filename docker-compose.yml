@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  postgres_rizkia:
+    image: postgres:15
+    container_name: postgres_rizkia
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: salamdb
+    ports:
+      - "22063:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+    networks:
+      - pgnetwork
+
+  pgadmin_rizkia:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin_rizkia
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "44063:80"
+    networks:
+      - pgnetwork
+
+volumes:
+  postgres_data:
+
+networks:
+  pgnetwork:
+    driver: bridge
